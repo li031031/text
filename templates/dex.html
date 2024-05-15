@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Visualization with ECharts</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.0.2/echarts.min.js"></script>
+</head>
+<body>
+    <div id="main" style="height:400px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                text: 'Sample Data Visualization'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type: 'category',
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [],
+                type: 'bar'
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        // 异步加载数据
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                myChart.setOption({
+                    xAxis: {
+                        data: data.category
+                    },
+                    series: [{
+                        data: data.values
+                    }]
+                });
+            }
+        };
+        xhr.open('GET', '/data', true);
+        xhr.send();
+    </script>
+</body>
+</html>

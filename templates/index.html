@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% block head %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block title %}{% endblock %}shopping首页</title>
+    <link href="static/css/shopping.css" rel='stylesheet' type='text/css'/>
+    <link href="static/css/shoplist.css" rel='stylesheet' type='text/css'/>
+    <link rel="start icon" href="static/images/resize_png_new.png">
+    {% endblock %}
+</head>
+
+<body>
+<!------ start header top------->
+<div class="top1">
+    <div class="top-left">
+        <p><a href="goodslist.html" target="_blank">购物五折啦</a></p>
+    </div>
+<!--    <div class="top-middle">-->
+<!--    </div>-->
+    <<div class="top-right">
+    <ul>
+        <li><a href="#">最近浏览</a></li>
+
+        {% if session['logged_in'] %}
+        <li><a href="/login" target="_blank">欢迎{{ session['username'] }}登录</a></li>
+        <li><a href="/bashboard" target="_blank">商品管理</a></li>
+        <li><a href="/logout" target="_blank">退出</a></li>
+        {% else %}
+        <li><a href="#">关于我们</a></li>
+        <li><a href="/login" target="_blank">登录</a></li>
+        <li><a href="/register" target="_blank">注册</a></li>
+        {% endif %}
+    </ul>
+</div>
+</div>
+{% block main %}
+<!------ end header top------->
+<!-----start header logo------->
+<div class="header1">
+    <div id="logo"><a href="index.html"> <img src="static/images/logo.png" alt="折扣店logo" title="折扣社"/> </a></div>
+    <div class="search">
+        <form action="#" method="post" id="sitesearch">
+            <fieldset>
+                <!-- 使用onfocus事件在点击时清空输入框 -->
+                <input type="text" value="搜索一下" onfocus="if(this.value==='搜索一下'){this.value='';}"/>
+                <input type="image" src="static/images/search.png" id="search" alt="搜索一下"/>
+            </fieldset>
+        </form>
+    </div>
+    <div class="icon1"><a href=""><img class="img1" src="static/images/love.png" title="收藏"/> </a></div>
+    <div class="icon2"><a href=""> <img class="img1" src="static/images/bag.png" title="购物车"/> </a></div>
+    <div class="icon3"><a class="register_user" href="/register" target="_blank">注册账户&gt;</a></div>
+</div>
+<!-----end header logo------->
+
+<!-------- start header menu--------->
+<div class="header-menu">
+    <ul>
+        <li><a class="a1" href="/">首页</a></li>
+        <li><a class="a2" href="">今日最新</a></li>
+        {% for cate in categorys %}
+        <li>
+            <a class="a3" href="#">{{ cate.cname }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!--------end header menu--------->
+
+<!-------- start content1--------->
+<div class="container">
+    <div class="slider">
+        <div class="area">
+            <div id=js class="js">
+                <div class="box01"><img onClick="location.href='goodslist.html'" src="static/images/banner_01.jpg"> <img
+                        onClick="location.href='cart.html'" style="DISPLAY: none" src="static/images/banner_02.jpg">
+                    <img onClick="location.href='details.html'" style="DISPLAY: none" src="static/images/banner_03.jpg">
+                    <img onClick="location.href='details.html'" style="DISPLAY: none" src="static/images/banner_04.jpg">
+                    <img onClick="location.href='details.html'" style="DISPLAY: none" src="static/images/banner_05.jpg">
+                </div>
+                <div class="bg"></div>
+                <div id=jsNav class=jsNav><a class="trigger imgSelected" href="javascript:void(0)">1</a> <a
+                        class="trigger" href="javascript:void(0)">2</a> <a class="trigger"
+                                                                           href="javascript:void(0)">3</a> <a
+                        class="trigger" href="javascript:void(0)">4</a> <a class="trigger"
+                                                                           href="javascript:void(0)">5</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-right">
+            {% for one_product in products %}
+            <div class="container1">
+                <div class="pic-sale1"><img src="{{ one_product.images}} " /></div>
+                <h4><a href="goodslist.html">&nbsp;&nbsp;&nbsp;&nbsp;{{ one_product.pname}}</a></h4>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;{{ one_product.pDesc}}
+                <h5 style="color:#F30 "> &nbsp;&nbsp;{{ one_product.old_price}}</h5>
+                </p>
+            </div>
+            <br/>
+            {% endfor %}
+    </div>
+</div>
+<!--------end content1--------->
+
+<!--------start content 2--------->
+
+<div class="popular">
+    <div class="popular1"><a href="details.html"><img src="static/images/pic1.jpg"/>
+        <div class="look">
+            <h4>流行风向</h4>
+            <p>查看更多</p>
+        </div>
+    </a></div>
+    <div class="popular1"><a href="details.html"><img src="static/images/pic2.jpg"/>
+        <div class="look">
+            <h4>时尚前沿</h4>
+            <p>产看更多</p>
+        </div>
+    </a></div>
+    <div class="popular1"><a href="details.html"> <img src="static/images/pic3.jpg"/>
+        <div class="look">
+            <h4>踮起脚尖</h4>
+            <p>产看更多</p>
+        </div>
+    </a></div>
+    <div class="popular1"><a href="details.html"><img src="static/images/pic4.jpg"/>
+        <div class="look">
+            <h4>独一无二</h4>
+            <p>查看更多</p>
+        </div>
+    </a></div>
+</div>
+
+<!--------end content2--------->
+
+<!-------- start content3-------->
+<div class="content clearfix">
+    <div class="content1">
+        <h4>购物指南</h4>
+        <ul class="f_nav">
+            <li><a href="goodslist.html">购物流程</a></li>
+            <li><a href="goodslist.html">会员介绍</a></li>
+            <li><a href="goodslist.html">团购|机票</a></li>
+            <li><a href="goodslist.html">常见问题</a></li>
+            <li><a href="goodslist.html">意见反馈</a></li>
+            <li><a href="goodslist.html">联系客服</a></li>
+        </ul>
+    </div>
+    <div class="content1">
+        <h4>配送方式</h4>
+        <ul class="f_nav">
+            <li><a href="goodslist.html">上门自取</a></li>
+            <li><a href="goodslist.html">211限时到达</a></li>
+            <li><a href="goodslist.html">配送服务查询</a></li>
+            <li><a href="goodslist.html">配送费收取标准</a></li>
+            <li><a href="goodslist.html">同城配送</a></li>
+            <li><a href="goodslist.html">海外配送</a></li>
+        </ul>
+    </div>
+    <div class="content1">
+        <h4>支付方式</h4>
+        <ul class="f_nav">
+            <li><a href="#">售后政策</a></li>
+            <li><a href="#">价格保护</a></li>
+            <li><a href="#">退款说明</a></li>
+            <li><a href="#">返修|退换货</a></li>
+            <li><a href="#">取消订单</a></li>
+            <li><a href="#">订单详情</a></li>
+        </ul>
+    </div>
+    <div class="content1">
+        <h4>售后服务</h4>
+        <ul class="f_nav">
+            <li><a href="#">售后政策</a></li>
+            <li><a href="#">价格保护</a></li>
+            <li><a href="#">退款说明</a></li>
+            <li><a href="#">返修|退换货</a></li>
+            <li><a href="#">取消订单</a></li>
+            <li><a href="#">订单详情</a></li>
+        </ul>
+    </div>
+    <div class="content1">
+        <h4>商家服务</h4>
+        <ul class="f_nav">
+            <li><a href="#">商家帮助</a></li>
+            <li><a href="#">商家入驻</a></li>
+            <li><a href="#">新手指导</a></li>
+            <li><a href="#">培训中心</a></li>
+            <li><a href="#">信息公告</a></li>
+            <li><a href="#">广告服务</a></li>
+        </ul>
+    </div>
+</div>
+</div>
+<br/>
+<!-------- end content3-------->
+
+<!--------start  footer top-------->
+
+<div class="footer1 clearfix">
+    <div class="footer-pic"><img src="static/images/picll.jpg" title="点击领取优惠券"/>
+        <div class="put">
+            <marquee scrollamount="4" id="move3">
+                领取优惠券后购买更实惠
+            </marquee>
+        </div>
+    </div>
+    <div class="address"> 折扣店服装公司地址：<br/>
+        中国<br/>
+        湖北/武汉市<br/>
+        洪山区雄楚大道91号名仕一号<br/>
+        <br/>
+        Tel: 18702727108<br/>
+        Email: <a href="http://weibo.com/">yxjy@sina.com</a>
+        </address>
+    </div>
+    <div class="footer-right">
+        <marquee id="move2" scrollamount="5" direction="right">
+            美丽百分百，折扣店让你快人一步
+        </marquee>
+        <div class="share-pic"><img src="static/images/social.png" title="分享更快乐" usemap="#mapxie2" border="0"/>
+            <map name="mapxie2" id="mapxie2">
+                <area shape="rect" coords="5,2,53,46" href="http://weibo.com/" target="_blank"/>
+                <area shape="rect" coords="53,3,102,46"
+                      href="http://openapi.qzone.qq.com/oauth/show?client_id=217921&amp;display=pc&amp;redirect_uri=http%3A%2F%2Fwww.douguo.com%2Fapi%2Ftx_get_access_token&amp;response_type=code&amp;scope=all&amp;which=Login"
+                      target="_blank"/>
+                <area shape="rect" coords="104,4,158,51" href="http://wx.qq.com/" target="_blank"/>
+                <area shape="rect" coords="162,3,210,47" href="http://www.renren.com/" target="_blank"/>
+                <area shape="rect" coords="208,-3,275,47" href="http://t.qq.com/" target="_blank"/>
+            </map>
+        </div>
+        <div id="newsletter">
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>乐在分享</legend>
+                    <input type="text" value="留下您宝贵的建议："
+                           onfocus="this.value=(this.value=='留下您宝贵的建议')? '' : this.value ;"/>
+                    <input type="submit" id="subscribe" value="留言"/>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!--------end footer top--------->
+<!--------start footer-------->
+{% endblock %}
+<div class="footer2">
+    <p>关于我们 - 版权声明 - 帮助(？) - 联系我们 - 友情链接 - 用户注册 - 地图<br/>
+        hill may的折扣店 版权所有 CopyRight 2014-2015 Hill may.com, Inc. All Rights Reserved</p>
+</div>
+<!-------- end footer --------->
+
+<script type="text/javascript" src="static/script/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="static/script/js.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".area").hover(function(){
+	  $(this).find(".qq").show(100);}
+	  ,function(){
+		$(this).find(".qq").hide(100);
+	});
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+
+{% extends 'index.html' %}
+{% block title %}{% endblock %}
+
+{% block head %}
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <link href="static/css/shopping.css" rel='stylesheet' type='text/css'/>
+    <link href="static/css/shoplist.css" rel='stylesheet' type='text/css'/>
+    <link rel="start icon" href="static/images/resize_png_new.png">
+{% endblock %}
+
+{% block main %}
+<div class="container-li content">
+  <h1>商品管理后台 <small> 欢迎 {{session.username}}</small>
+    <a class="btn btn-success" href="/add_product" style="float:right"> 发布商品 </a>
+    <a class="btn btn-success" href="/job" style="float:right"> 数据可视化 </a>
+    <a class="btn btn-success" href="/" style="float:right"> 首页 </a>
+  </h1>
+  <hr>
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>商品名称</th>
+      <th>商品价格</th>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for one_product in products_02 %}
+      <tr>
+        <td> {{ one_product.id}}</td>
+        <td> {{ one_product.pname}}</td>
+        <td> {{ one_product.old_price}}</td>
+        <td><a href="#" class="btn btn-info" style="float:right">编辑</a></td>
+        <td>
+          <form action="{{url_for('delete_product', id=one_product.id)}}"  method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="删除" class="btn btn-danger">
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+  </table>
+</div>
+{% endblock %}
